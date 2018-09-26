@@ -103,7 +103,7 @@ def chocks_off():
 # Base URL / - loads web interface        
 @app.route('/')
 def index():
-    cfg.video_fps = 0
+    cfg.video_intervalms = 0
     video = request.args.get('video')
     if video == 'n':
         cfg.video_status = False
@@ -111,7 +111,7 @@ def index():
         if video == None:
             cfg.video_status = cfg.camera_detected
         elif float(video) > 0:
-            cfg.video_fps = float(video)
+            cfg.video_intervalms = float(video)
             cfg.video_status = cfg.camera_detected
     return app.send_static_file('index.html')
 
@@ -140,7 +140,7 @@ def heartbeat():
     output['y'] = cfg.yellow
     output['c'] = cfg.chocks
     output['g'] = cfg.green
-    output['f'] = cfg.video_fps
+    output['f'] = cfg.video_intervalms
     output['v'] = cfg.video_status
     output['l'] = cfg.left_motor
     output['r'] = cfg.right_motor
